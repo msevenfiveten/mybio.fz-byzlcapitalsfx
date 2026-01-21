@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zeo Onee | TikTok</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: #000000;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        /* Background efek partikel */
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .particle {
+            position: absolute;
+            background: linear-gradient(45deg, #ff0050, #00f2ea);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-1000px) rotate(720deg); }
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 500px;
+            z-index: 1;
+        }
+        
+        .card {
+            background: rgba(22, 24, 28, 0.9);
+            border-radius: 25px;
+            overflow: hidden;
+            box-shadow: 
+                0 0 50px rgba(255, 0, 80, 0.3),
+                0 0 100px rgba(0, 242, 234, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        
+        .header {
+            padding: 50px 30px 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        /* Efek glow di belakang profil */
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            background: radial-gradient(circle, rgba(255, 0, 80, 0.2) 0%, transparent 70%);
+            z-index: 0;
+        }
+        
+        .profile-container {
+            position: relative;
+            width: 160px;
+            height: 160px;
+            margin: 0 auto 25px;
+            z-index: 1;
+        }
+        
+        .profile-frame {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff0050, #00f2ea, #25f4ee, #fe2c55);
+            padding: 5px;
+            animation: rotate 4s linear infinite;
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            display: block;
+        }
+        
+        .username {
+            font-size: 32px;
+            font-weight: 800;
+            background: linear-gradient(45deg, #ff0050, #00f2ea);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 5px;
+        }
+        
+        .handle {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: rgba(255, 0, 80, 0.2);
+            color: #ff0050;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 600;
+            border: 1px solid rgba(255, 0, 80, 0.3);
+        }
+        
+        .content {
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .tiktok-icon {
+            font-size: 70px;
+            margin-bottom: 25px;
+            position: relative;
+        }
+        
+        .tiktok-icon i {
+            background: linear-gradient(45deg, #ff0050, #00f2ea);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .tiktok-icon::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(255, 0, 80, 0.1) 0%, transparent 70%);
+            z-index: -1;
+        }
+        
+        .description {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            margin-bottom: 35px;
+            font-size: 16px;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn-container {
+            margin-top: 30px;
+        }
+        
+        .tiktok-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            padding: 18px 45px;
+            background: linear-gradient(45deg, #ff0050, #00f2ea);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .tiktok-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 10px 25px rgba(255, 0, 80, 0.4),
+                0 0 30px rgba(0, 242, 234, 0.2);
+        }
+        
+        .tiktok-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .tiktok-btn:hover::before {
+            left: 100%;
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.3);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .powered-by {
+            color: #00f2ea;
+            font-weight: 600;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        
+        @media (max-width: 600px) {
+            .container {
+                max-width: 90%;
+            }
+            
+            .profile-container {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .username {
+                font-size: 28px;
+            }
+            
+            .content {
+                padding: 30px;
+            }
+            
+            .tiktok-btn {
+                padding: 16px 35px;
+                font-size: 16px;
+            }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background partikel -->
+    <div class="background" id="particles"></div>
+    
+    <div class="container">
+        <div class="card">
+            <div class="header">
+                <div class="profile-container">
+                    <div class="profile-frame">
+                        <img src="https://i.postimg.cc/rp6sJhpC/5m14sd.jpg" alt="Zeo Onee" class="profile-img">
+                    </div>
+                </div>
+                
+                <h1 class="username">A1</h1>
+                <div class="handle"></div>
+                <div class=</div>
+            </div>
+            
+            <div class="content">
+                <div class="tiktok-icon">
+                    <i class="fab fa-tiktok"></i>
+                </div>
+                
+                <p class="description">
+                   
+                </p>
+                
+                <div class="btn-container">
+                    <a href="https://www.tiktok.com/@zeo_onee?_r=1&_t=ZS-92i9NXIdp12" target="_blank" class="tiktok-btn pulse">
+                        <i class="fab fa-tiktok"></i>
+                        Kunjungi
+                    </a>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <p></p>
+                <p class="powered-by">Powered By @ZL-CAPITALS.FX</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Membuat partikel background
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 30;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Ukuran random
+                const size = Math.random() * 100 + 50;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Posisi random
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100 + 100}%`;
+                
+                // Animasi delay random
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                particle.style.animationDuration = `${Math.random() * 10 + 15}s`;
+                
+                // Opacity random
+                particle.style.opacity = Math.random() * 0.2 + 0.1;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // Animasi tombol
+        const tiktokBtn = document.querySelector('.tiktok-btn');
+        
+        tiktokBtn.addEventListener('mouseenter', function() {
+            this.classList.remove('pulse');
+        });
+        
+        tiktokBtn.addEventListener('mouseleave', function() {
+            setTimeout(() => {
+                this.classList.add('pulse');
+            }, 300);
+        });
+        
+        // Efek hover untuk card
+        const card = document.querySelector('.card');
+        card.addEventListener('mousemove', function(e) {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            const rotateY = (x - 0.5) * 10;
+            const rotateX = (0.5 - y) * 10;
+            
+            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        });
+        
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0)';
+            this.style.transition = 'transform 0.5s ease';
+        });
+        
+        // Inisialisasi
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            
+            // Efek typing untuk description
+            const description = document.querySelector('.description');
+            const text = description.textContent;
+            description.textContent = '';
+            
+            let i = 0;
+            function typeWriter() {
+                if (i < text.length) {
+                    description.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 30);
+                }
+            }
+            
+            setTimeout(typeWriter, 1000);
+        });
+    </script>
+</body>
+</html>
